@@ -12,39 +12,34 @@ import java.util.*;
 
 public class Zigzag {
     
-    private int[] array;
-    private int arraySize = 0;
-    
-    public Zigzag() {
-        array = new int[0];
-    }
     
     public int[] create(int n) {
-        arraySize += 1;
-        int[] newArray = new int[arraySize];
-        
-        if (n % 2 == 0 || n == 1) {
-            for (int i = 0; i < arraySize - 1; i++) {
-                newArray[i] = array[i];
+        int[] array = new int[n];
+        int currentNumber = 1;
+        for (int i = 0; i < n; i++) {
+            if (currentNumber == 1 || currentNumber % 2 == 0) {
+                array[i] = currentNumber;
+            } else {
+                int[] temp = new int[n];
+                temp[0] = currentNumber;
+                for (int c = 1; c < n; c++) {
+                    temp[c] = array[c - 1];
+                }
+                array = temp;
             }
-            newArray[arraySize - 1] = n;
-        } else {
-            newArray[0] = n;
-            for (int i = 1; i < arraySize; i++) {
-                newArray[i] = array[i - 1];
-            }
+            currentNumber++;
         }
-        array = newArray;
+
         return array;
     }
 
     public static void main(String[] args) {
         Zigzag z = new Zigzag();
-        System.out.println(Arrays.toString(z.create(1))); // [1]
+        //System.out.println(Arrays.toString(z.create(1))); // [1]
         System.out.println(Arrays.toString(z.create(2))); // [1,2]
-        System.out.println(Arrays.toString(z.create(3))); // [3,1,2]
-        System.out.println(Arrays.toString(z.create(4))); // [3,1,2,4]
-        System.out.println(Arrays.toString(z.create(5))); // [5,3,1,2,4]
+        //System.out.println(Arrays.toString(z.create(3))); // [3,1,2]
+        //System.out.println(Arrays.toString(z.create(4))); // [3,1,2,4]
+        //System.out.println(Arrays.toString(z.create(5))); // [5,3,1,2,4]
     }
 }
 
