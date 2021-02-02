@@ -1,16 +1,11 @@
-
-import java.util.ArrayList;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author sonjaek
  */
+
+import java.util.ArrayList;
+
+
 public class Lucky {
     public boolean check(int n) {
         String number = String.valueOf(n);
