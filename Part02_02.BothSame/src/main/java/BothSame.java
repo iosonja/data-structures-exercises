@@ -21,8 +21,13 @@ public class BothSame {
                 map.put(currentChar, 1);
             }
         }
-        // TODO: Return a function mapper
-        return 0;
+
+        long result = 0;
+        for (long currentValue: map.values()) {
+            result += currentValue * (currentValue + 1) / 2;
+        }
+        
+        return result;
     }
 
     public static void main(String[] args) {
