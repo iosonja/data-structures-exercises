@@ -1,19 +1,20 @@
 /**
- *
+ * 
  * @author sonjaek
  */
 public class SplitList {
     
     public int count(int[] t) {
-        int sum = 0;
+        int possibleWaysToSplit = 0;
         int size = t.length;
         
         int[] leftSide = new int[size];
         int[] rightSide = new int[size];
         
         leftSide[0] = t[0];
-        rightSide[size - 1] = t[size];
+        rightSide[size - 1] = t[size - 1];
         
+        // Go through the left side of the array:
         for (int i = 1; i < size; i++) {
             if (leftSide[i - 1] > t[i]) {
                 leftSide[i] = leftSide[i - 1];
@@ -22,6 +23,7 @@ public class SplitList {
             }
         }
         
+        // Go through the right side of the array:
         for (int i = size - 2; i >= 0; i--) {
             if (rightSide[i + 1] < t[i]) {
                 rightSide[i] = rightSide[i + 1];
@@ -34,13 +36,13 @@ public class SplitList {
             if (leftSide[i] < rightSide[i + 1]) {
                 if (leftSide[i] < leftSide[i + 1]) {
                     if (rightSide[i] < rightSide[i + 1]) {
-                        sum++;
+                        possibleWaysToSplit++;
                     }
                 }
             }
         }
         
-        return sum;
+        return possibleWaysToSplit;
     }
 
     public static void main(String[] args) {
