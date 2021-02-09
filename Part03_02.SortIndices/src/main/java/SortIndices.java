@@ -3,21 +3,21 @@
  * @author sonjaek
  */
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class SortIndices {
+
     public int[] get(int[] t) {
         int[] indices = new int[t.length];
         int[] sortedArray = Arrays.copyOf(t, t.length);
         Arrays.sort(sortedArray);
         
-        int currentIndex;
-        
         for (int i = 0; i < t.length; i++) {
-            for (int j = 0; j < t.length; j++) {
-                if (t[j] == sortedArray[i]) {
-                    indices[i] = j;
-                }
-            }
+            final int currentValue = sortedArray[i];
+            indices[i] = IntStream.range(0, t.length)
+                        .filter(j -> t[j] == currentValue)
+                        .findFirst()
+                        .getAsInt();
         }
         return indices;
     }
