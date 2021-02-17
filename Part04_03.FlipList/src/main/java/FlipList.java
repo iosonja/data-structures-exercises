@@ -1,71 +1,53 @@
-/**
-Tehtäväsi on toteuttaa oma tehokas tietorakenne kääntölista, joka tarjoaa seuraavat toiminnot:
-Lisää alkio listan loppuun
-Palauta ja poista alkio listan lopusta
-Lisää alkio listan alkuun
-Palauta ja poista alkio listan alusta
-Käännä listan sisältö
-        
+/**  
  *
  * @author sonjaek
  */
+
+import java.util.ArrayDeque;
+
+
 public class FlipList {
     
-    private Node head;
-    private Node tail;
+    boolean flipped;
 
-    public FlipList() {
-        Node firstNode = new Node(1);
-        this.head = firstNode;
-        this.tail = firstNode;
-    }
-    
-    public class Node {
-    
-        private int data;
-        private Node next;
-        private Node previous;
 
-        public Node(int data) {
-            this.data = data;
-            this.next = null;
-            this.previous = null;
-        }
-        
-        public void setNext(Node x) {
-            this.next = x;
-        }
-        
-        public void setPrevious(Node x) {
-            this.previous = x;
-        }
-        
-    }
+    ArrayDeque<Integer> ad = new ArrayDeque<>();
+    
     
     public void pushLast(int x) {
-        Node newNode = new Node(x);
-        this.tail.setNext(newNode);
+        if (!flipped) {
+            ad.addLast(x);
+        } else {
+            ad.addFirst(x);
+        }
     }
 
     public void pushFirst(int x) {
-        Node newNode = new Node(x);
-        this.head.setPrevious(newNode);
-        newNode.setNext(head);
-        this.head = newNode;
+        if (!flipped) {
+            ad.addFirst(x);
+        } else {
+            ad.addLast(x);
+        }
     }
 
     public int popLast() {
-        return this.tail.data;
+        if (!flipped) {
+            return ad.getLast();
+        } else {
+            return ad.getFirst();
+        }
     }
 
     public int popFirst() {
-        return this.head.data;
+        if (!flipped) {
+            return ad.getFirst();
+        } else {
+            return ad.getLast();
+        }
     }
 
     public void flip() {
-        Node temp = this.head;
-        this.head = this.tail;
-        this.tail = temp;
+        flipped = !flipped;
     }
 
     public static void main(String[] args) {
