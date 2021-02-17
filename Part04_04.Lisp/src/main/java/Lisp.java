@@ -19,9 +19,7 @@ public class Lisp {
         
         for (String c: array) {
             c = c.trim();
-            if (c.equals("(")) {
-                continue;
-            } else if (c.equals(")")) {
+            if (c.equals(")")) {
                 int i = valuesBetweenBrackets.size() - 1;
                 while (i >= 0) {
                     if (valuesBetweenBrackets.get(i).equals("*")) {
@@ -49,7 +47,7 @@ public class Lisp {
                     }
                     i--;
                 }
-            } else if (!c.equals("")) { // This has to be here and I dunno why
+            } else if (!c.equals("") && !c.equals("(")) {
                 valuesBetweenBrackets.add(c);
             }
         }
