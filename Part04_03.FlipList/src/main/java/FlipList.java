@@ -12,6 +12,7 @@ public class FlipList {
 
 
     ArrayDeque<Integer> ad = new ArrayDeque<>();
+    int n;
     
     
     public void pushLast(int x) {
@@ -32,18 +33,24 @@ public class FlipList {
 
     public int popLast() {
         if (!flipped) {
-            return ad.getLast();
+            n = ad.getLast();
+            ad.removeLast();
         } else {
-            return ad.getFirst();
+            n = ad.getFirst();
+            ad.removeFirst();
         }
+        return n;
     }
 
     public int popFirst() {
         if (!flipped) {
-            return ad.getFirst();
+            n = ad.getFirst();
+            ad.removeFirst();
         } else {
-            return ad.getLast();
+            n = ad.getLast();
+            ad.removeLast();
         }
+        return n;
     }
 
     public void flip() {
