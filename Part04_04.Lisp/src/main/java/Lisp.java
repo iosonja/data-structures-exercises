@@ -9,28 +9,53 @@ import java.util.ArrayList;
 public class Lisp {
     public long eval(String s) {
         
-        ArrayList<ArrayList<Character>> sectionList = new ArrayList<>();
-        ArrayList<Character> currentCharList = null;
-        int sectionListIndex = -1;
-        int openBrackets = 0;
+        String ss = s.replace("(", " ( ");
+        ss = ss.replace(")", " ) ");
+        String[] array = ss.split(" ");
         
-        for (char c: s.toCharArray()) {
-            if (c == '(') {
-                sectionList.add(currentCharList);
-                sectionListIndex++;
-                ArrayList<Character> chars = new ArrayList<>();
-                currentCharList = chars;
-                openBrackets++;
-            } else if (c == ')') {
-                sectionListIndex--;
-                currentCharList = sectionList.get(sectionListIndex);
-                openBrackets--;
-            } else if (c == ' ') {
+        
+        ArrayList<String> values = new ArrayList<>();
+        ArrayList<Integer> count = new ArrayList<>();
+        
+        for (String c: array) {
+            c = c.trim();
+            if (c.equals("(")) {
+                continue;
+            } else if (c.equals(")")) {
+                int i = values.size() - 1;
+                while (i >= 0) {
+                    if (values.get(i).equals("*")) {
+                        values.remove(values.size() - 1); // The parameter can maybe be replaced with i
+                        int res = 1;
+                        for (int x: count) {
+                            res *= x;
+                        }
+                        values.add(String.valueOf(res));
+                        count.clear();
+                        break;
+                    } else if (values.get(i).equals("+")) {
+                        values.remove(values.size() - 1); // The parameter can maybe be replaced with i
+                        int res = 1;
+                        for (int x: count) {
+                            res += x;
+                        }
+                        values.add(String.valueOf(res));
+                        count.clear();
+                        break;
+                    } else {
+                        String val = values.get(values.size() - 1);
+                        values.remove(values.size() - 1); // The parameter can maybe be replaced with i
+                        count.add(Integer.valueOf(val));
+                    }
+                    i--;
+                }
+            } else if (c.equals("")) {
                 continue;
             } else {
-                currentCharList.add(c);
+                values.add(c);
             }
         }
+        return Integer.valueOf(values.get(0));
     }
 
     public static void main(String[] args) {
