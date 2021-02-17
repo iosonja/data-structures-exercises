@@ -15,7 +15,7 @@ public class Lisp {
         
         
         ArrayList<String> valuesBetweenBrackets = new ArrayList<>();
-        ArrayList<Integer> integerArray = new ArrayList<>();
+        ArrayList<Long> numberArray = new ArrayList<>();
         
         for (String c: array) {
             c = c.trim();
@@ -26,26 +26,26 @@ public class Lisp {
                 while (i >= 0) {
                     if (valuesBetweenBrackets.get(i).equals("*")) {
                         valuesBetweenBrackets.remove(i);
-                        int result = 1;
-                        for (int x: integerArray) {
-                            result *= x;
-                        }
+                        long result = 1;
+                        result = numberArray.stream()
+                                .map(x -> x)
+                                .reduce(result, (accumulator, _item) -> accumulator * _item);
                         valuesBetweenBrackets.add(String.valueOf(result));
-                        integerArray.clear();
+                        numberArray.clear();
                         break;
                     } else if (valuesBetweenBrackets.get(i).equals("+")) {
                         valuesBetweenBrackets.remove(i);
-                        int result = 0;
-                        for (int x: integerArray) {
-                            result += x;
-                        }
+                        long result = 0;
+                        result = numberArray.stream()
+                                .map(x -> x)
+                                .reduce(result, (accumulator, _item) -> accumulator + _item);
                         valuesBetweenBrackets.add(String.valueOf(result));
-                        integerArray.clear();
+                        numberArray.clear();
                         break;
                     } else {
-                        String val = valuesBetweenBrackets.get(valuesBetweenBrackets.size() - 1);
+                        String val = valuesBetweenBrackets.get(i);
                         valuesBetweenBrackets.remove(i);
-                        integerArray.add(Integer.valueOf(val));
+                        numberArray.add(Long.valueOf(val));
                     }
                     i--;
                 }
@@ -53,7 +53,7 @@ public class Lisp {
                 valuesBetweenBrackets.add(c);
             }
         }
-        return Integer.valueOf(valuesBetweenBrackets.get(0));
+        return Long.valueOf(valuesBetweenBrackets.get(0));
     }
 
     public static void main(String[] args) {
