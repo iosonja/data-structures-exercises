@@ -14,48 +14,46 @@ public class Lisp {
         String[] array = ss.split(" ");
         
         
-        ArrayList<String> values = new ArrayList<>();
-        ArrayList<Integer> count = new ArrayList<>();
+        ArrayList<String> valuesBetweenBrackets = new ArrayList<>();
+        ArrayList<Integer> integerArray = new ArrayList<>();
         
         for (String c: array) {
             c = c.trim();
             if (c.equals("(")) {
                 continue;
             } else if (c.equals(")")) {
-                int i = values.size() - 1;
+                int i = valuesBetweenBrackets.size() - 1;
                 while (i >= 0) {
-                    if (values.get(i).equals("*")) {
-                        values.remove(values.size() - 1); // The parameter can maybe be replaced with i
-                        int res = 1;
-                        for (int x: count) {
-                            res *= x;
+                    if (valuesBetweenBrackets.get(i).equals("*")) {
+                        valuesBetweenBrackets.remove(i);
+                        int result = 1;
+                        for (int x: integerArray) {
+                            result *= x;
                         }
-                        values.add(String.valueOf(res));
-                        count.clear();
+                        valuesBetweenBrackets.add(String.valueOf(result));
+                        integerArray.clear();
                         break;
-                    } else if (values.get(i).equals("+")) {
-                        values.remove(values.size() - 1); // The parameter can maybe be replaced with i
-                        int res = 1;
-                        for (int x: count) {
-                            res += x;
+                    } else if (valuesBetweenBrackets.get(i).equals("+")) {
+                        valuesBetweenBrackets.remove(i);
+                        int result = 0;
+                        for (int x: integerArray) {
+                            result += x;
                         }
-                        values.add(String.valueOf(res));
-                        count.clear();
+                        valuesBetweenBrackets.add(String.valueOf(result));
+                        integerArray.clear();
                         break;
                     } else {
-                        String val = values.get(values.size() - 1);
-                        values.remove(values.size() - 1); // The parameter can maybe be replaced with i
-                        count.add(Integer.valueOf(val));
+                        String val = valuesBetweenBrackets.get(valuesBetweenBrackets.size() - 1);
+                        valuesBetweenBrackets.remove(i);
+                        integerArray.add(Integer.valueOf(val));
                     }
                     i--;
                 }
-            } else if (c.equals("")) {
-                continue;
-            } else {
-                values.add(c);
+            } else if (!c.equals("")) { // This has to be here and I dunno why
+                valuesBetweenBrackets.add(c);
             }
         }
-        return Integer.valueOf(values.get(0));
+        return Integer.valueOf(valuesBetweenBrackets.get(0));
     }
 
     public static void main(String[] args) {
