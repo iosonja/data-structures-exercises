@@ -10,34 +10,25 @@ public class Mode {
     // We need an online algorithm for this.
 
     HashMap<Integer, Integer> hm = new HashMap<>();
-    
-    public int countMode() {
-        int biggestValueSoFar = 0;
-        int mostCommonKey = 99999;
-        
-        for (int i: hm.keySet()) {
-            if (hm.get(i) > biggestValueSoFar) {
-                biggestValueSoFar = hm.get(i);
-                mostCommonKey = i;
-            } else if (hm.get(i) == biggestValueSoFar && i < mostCommonKey) {
-                biggestValueSoFar = hm.get(i);
-                mostCommonKey = i;
-            }
-        }
-        return mostCommonKey;
-    }
+    int biggestCount = 0;
+    int mostCommon = 0;
 
     public int add(int x) {
         if (hm.containsKey(x)) {
-            int prevCount = hm.get(x);
-            int newCount = prevCount + 1;
-            hm.put(x, newCount);
+            hm.put(x, hm.get(x) + 1);
         } else {
             hm.put(x, 1);
         }
-        int mode = countMode();
+
+        if (hm.get(x) > biggestCount) {
+            mostCommon = x;
+            biggestCount = hm.get(x);
+        } else if (hm.get(x) == biggestCount && mostCommon > x) {
+            mostCommon = x;
+            biggestCount = hm.get(x);
+        }
         
-        return mode;
+        return mostCommon;
     }
 
     public static void main(String[] args) {
