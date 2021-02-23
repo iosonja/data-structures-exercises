@@ -2,15 +2,14 @@
  *
  * @author sonjaek
  */
- 
-import java.util.HashMap;
- 
- 
+
+import java.util.HashSet;
+
+
 public class Robot {
     public int count(String s) {
-        HashMap<int[], String> hm = new HashMap<>();
-        int[] coo = {0, 0};
-        hm.put(coo, "check");
+        HashSet<String> hm = new HashSet<>();
+        hm.add("0:0");
         
         int x = 0;
         int y = 0;
@@ -31,10 +30,11 @@ public class Robot {
                 default:
                     break;
             }
-            int[] coordinate = new int[2];
-            coordinate[0] = x;
-            coordinate[1] = y;
-            hm.put(coordinate, "check");
+            String coord = String.valueOf(x) + ":" + String.valueOf(y);
+//            if (!hm.contains(coord)) {
+//                hm.add(coord);
+//            }
+            hm.add(coord);
         }
         
         return hm.size();
