@@ -2,9 +2,37 @@
  *
  * @author sonjaek
  */
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+
 public class Balance {
     public long count(String s) {
-        // TODO
+        int[] tester = {0, 0, 0};
+        ArrayList<Integer> al = new ArrayList<>();
+        al.add(0);
+        al.add(0);
+        
+        HashMap<ArrayList<Integer>, Integer> subsequences = new HashMap<>();
+        subsequences.put(al, 1);
+        long sum = 0;
+        
+        for (char c: s.toCharArray()) {
+            tester[c-65] += 1; // 65 is where the alphabets start in ASCII code
+            al.clear();
+            al.add(tester[0] - tester[1]);
+            al.add(tester[0] - tester[2]);
+            
+            if (subsequences.containsKey(al)) {
+                sum += subsequences.get(al);
+                subsequences.put(al, subsequences.get(al) + 1);
+            } else {
+                subsequences.put(al, 1);
+            }
+            
+        }
+        return sum;
     }
 
     public static void main(String[] args) {
