@@ -12,13 +12,16 @@ public class Mode {
     HashMap<Integer, Integer> hm = new HashMap<>();
     
     public int countMode() {
-        int biggestSoFar = 0;
+        int biggestValueSoFar = 0;
+        int mostCommonKey = -1;
+        
         for (int i: hm.keySet()) {
-            if (hm.get(i) > biggestSoFar) {
-                biggestSoFar = hm.get(i);
+            if (hm.get(i) > biggestValueSoFar) {
+                biggestValueSoFar = hm.get(i);
+                mostCommonKey = i;
             }
         }
-        return biggestSoFar;
+        return mostCommonKey;
     }
 
     public int add(int x) {
