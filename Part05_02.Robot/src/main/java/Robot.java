@@ -31,9 +31,6 @@ public class Robot {
                     break;
             }
             String coord = String.valueOf(x) + ":" + String.valueOf(y);
-//            if (!hm.contains(coord)) {
-//                hm.add(coord);
-//            }
             hm.add(coord);
         }
         
