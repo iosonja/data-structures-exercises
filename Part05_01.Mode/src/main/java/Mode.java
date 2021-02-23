@@ -13,10 +13,13 @@ public class Mode {
     
     public int countMode() {
         int biggestValueSoFar = 0;
-        int mostCommonKey = -1;
+        int mostCommonKey = 99999;
         
         for (int i: hm.keySet()) {
             if (hm.get(i) > biggestValueSoFar) {
+                biggestValueSoFar = hm.get(i);
+                mostCommonKey = i;
+            } else if (hm.get(i) == biggestValueSoFar && i < mostCommonKey) {
                 biggestValueSoFar = hm.get(i);
                 mostCommonKey = i;
             }
@@ -25,12 +28,9 @@ public class Mode {
     }
 
     public int add(int x) {
-        int prevCount;
-        int newCount;
-        
         if (hm.containsKey(x)) {
-            prevCount = hm.get(x);
-            newCount = prevCount + 1;
+            int prevCount = hm.get(x);
+            int newCount = prevCount + 1;
             hm.put(x, newCount);
         } else {
             hm.put(x, 1);
