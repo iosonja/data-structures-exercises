@@ -1,13 +1,50 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author sonjaek
  */
+
+import java.util.HashMap;
+
+
 public class Mode {
+    // We need an online algorithm for this.
+
+    HashMap<Integer, Integer> hm = new HashMap<>();
     
+    public int countMode() {
+        int biggestSoFar = 0;
+        for (int i: hm.keySet()) {
+            if (hm.get(i) > biggestSoFar) {
+                biggestSoFar = hm.get(i);
+            }
+        }
+        return biggestSoFar;
+    }
+
+    public int add(int x) {
+        int prevCount;
+        int newCount;
+        
+        if (hm.containsKey(x)) {
+            prevCount = hm.get(x);
+            newCount = prevCount + 1;
+            hm.put(x, newCount);
+        } else {
+            hm.put(x, 1);
+        }
+        int mode = countMode();
+        
+        return mode;
+    }
+
+    public static void main(String[] args) {
+        Mode m = new Mode();
+        System.out.println(m.add(1)); // 1
+        System.out.println(m.add(2)); // 1
+        System.out.println(m.add(2)); // 2
+        System.out.println(m.add(1)); // 1
+        System.out.println(m.add(3)); // 1
+        System.out.println(m.add(3)); // 1
+        System.out.println(m.add(3)); // 3
+    }
 }
