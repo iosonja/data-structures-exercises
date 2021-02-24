@@ -20,15 +20,15 @@ public class Balance {
         
         for (char c: s.toCharArray()) {
             tester[c-65] += 1; // 65 is where the alphabets start in ASCII code
-            al.clear();
-            al.add(tester[0] - tester[1]);
-            al.add(tester[0] - tester[2]);
+            ArrayList<Integer> al2 = new ArrayList<>();
+            al2.add(tester[0] - tester[1]);
+            al2.add(tester[0] - tester[2]);
             
-            if (subsequences.containsKey(al)) {
-                sum += subsequences.get(al);
-                subsequences.put(al, subsequences.get(al) + 1);
+            if (subsequences.containsKey(al2)) {
+                sum += subsequences.get(al2);
+                subsequences.put(al2, subsequences.get(al2) + 1);
             } else {
-                subsequences.put(al, 1);
+                subsequences.put(al2, 1);
             }
             
         }
