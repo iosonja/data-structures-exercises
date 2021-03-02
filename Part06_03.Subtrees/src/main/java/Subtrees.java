@@ -1,8 +1,9 @@
 /**
+ * @author sonjaek
+ * 
  * The program counts the biggest difference that occurs between the number of 
  * child nodes on the right and left side of all the nodes in a given binary 
  * tree.
- * @author sonjaek
  */
 public class Subtrees {
     
@@ -30,9 +31,5 @@ public class Subtrees {
                              new Node(new Node(null,null),
                                       new Node(null,null)));
         System.out.println(s.diff(tree)); // Should be 3
-        
-        Node tree2 = new Node(new Node(new Node(new Node(new Node(null, null),null),null),null),
-                             new Node(new Node(new Node(new Node(new Node(null, null),null),null),null),null));
-        System.out.println(s.diff(tree2)); // Should be 1
     }
 }
