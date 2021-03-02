@@ -10,15 +10,14 @@ public class Subtrees {
         if (node == null) {
             return new int[]{0, 0};
         }
-        int[] leftChildren = count(node.left);
-        int[] rightChildren = count(node.right);
+        int[] left = count(node.left);
+        int[] right = count(node.right);
         
-        int counter = leftChildren[0] + rightChildren[0] + 1;
-        int difference = Math.abs(leftChildren[0] - rightChildren[0]);
+        int counter = left[0] + right[0] + 1;
+        int difference = Math.abs(left[0] - right[0]);
         
-        int biggerNumber = Math.max(leftChildren[1], rightChildren[1]);
-        
-        return new int[] {counter, Math.max(difference, biggerNumber)};
+        return new int[] {counter, 
+                          Math.max(difference, Math.max(left[1], right[1]))};
     }
     
     public int diff(Node node) {
